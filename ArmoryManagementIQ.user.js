@@ -36,9 +36,9 @@
     if(cat!=='weapons'&&cat!=='armour')return '';
     const hints=[row.getAttribute('data-type'),row.getAttribute('data-category'),row.getAttribute('data-slot'),row.querySelector('.name')?.getAttribute('title'),...Array.from(row.querySelectorAll('[data-type],[data-slot],[data-category],.type,.item-type,.category,.slot,[title]')).map(el=>[el.getAttribute('data-type'),el.getAttribute('data-slot'),el.getAttribute('data-category'),el.getAttribute('title'),el.matches('.type,.item-type,.category,.slot')?el.textContent:''].filter(Boolean).join(' '))].filter(Boolean).join(' ').toLowerCase();
     const matches=cat==='weapons'?['primary','secondary','melee']:['body','boots','gloves','helmet','pants'];
-    for(const key of matches){if(new RegExp('\\\\b'+key+'\\\\b','i').test(hints))return key}
+    for(const key of matches){if(new RegExp('\b'+key+'\b','i').test(hints))return key}
     // Armor item names sometimes identify the slot even when the DOM has no explicit label.
-    if(cat==='armour'){const n=name.toLowerCase();const patterns={boots:/\\\\b(boots|shoes|footwear)\\\\b/,gloves:/\\\\b(gloves|gauntlets)\\\\b/,helmet:/\\\\b(helmet|helm|headgear|mask)\\\\b/,pants:/\\\\b(pants|trousers|leggings)\\\\b/,body:/\\\\b(vest|body armor|body armour|chestplate|breastplate)\\\\b/};for(const [key,re] of Object.entries(patterns))if(re.test(n))return key}
+    if(cat==='armour'){const n=name.toLowerCase();const patterns={boots:/\b(boots|shoes|footwear)\b/,gloves:/\b(gloves|gauntlets)\b/,helmet:/\b(helmet|helm|headgear|mask)\b/,pants:/\b(pants|trousers|leggings)\b/,body:/\b(vest|body armor|body armour|chestplate|breastplate)\b/};for(const [key,re] of Object.entries(patterns))if(re.test(n))return key}
     return '';
   }
   function duplicateLoans(){
